@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -25,7 +26,7 @@ public class TarefaModel {
     @Column(name = "status")
     private String status;
     @Column(name = "data")
-    private Date data;
+    private LocalDate data;
 
 
 
