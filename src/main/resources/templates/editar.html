@@ -1,0 +1,52 @@
+<!-- editar.html -->
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Tarefa</title>
+    <style>
+        body{background:#0f1724;color:white;font-family:Inter;padding:30px;margin:0}
+        .container{max-width:600px;margin:0 auto;background:rgba(255,255,255,0.05);padding:25px;border-radius:14px}
+        h1{text-align:center;margin-bottom:20px}
+        label{display:block;margin-top:12px;font-size:14px;color:#b8c1d1}
+        input, textarea, select{width:100%;padding:10px;margin-top:5px;border-radius:10px;border:none;background:rgba(255,255,255,0.1);color:white}
+        button{margin-top:18px;width:100%;padding:12px;background:#6ee7b7;border:none;border-radius:10px;color:#041625;font-weight:700;cursor:pointer}
+        a{color:#60a5fa;text-decoration:none;display:block;margin-top:14px;text-align:center}
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Editar Tarefa</h1>
+
+
+    <form th:action="@{'/tarefas/ui/atualizar/' + ${tarefa.id}}" method="post">
+
+
+        <label>Nome</label>
+        <input type="text" name="nome" th:value="${tarefa.nome}" required>
+
+
+
+
+
+        <label>Data</label>
+        <input type="date" name="data" th:value="${tarefa.data}" required>
+
+
+        <label>Status</label>
+        <select name="status" th:value="${tarefa.status}">
+            <option value="ABERTA">ABERTA</option>
+            <option value="EM PROGRESSO">EM PROGRESSO</option>
+            <option value="FECHADA">FECHADA</option>
+        </select>
+
+
+        <button type="submit">Atualizar</button>
+    </form>
+
+
+    <a th:href="@{/tarefas/ui/listar}">Voltar</a>
+</div>
+</body>
+</html>

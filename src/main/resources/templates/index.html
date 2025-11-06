@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+
+    <style>
+        :root{
+            --bg:#0f1724;
+            --card:#0b1220;
+            --muted:#98a0b3;
+            --accent:#6ee7b7;
+            --accent2:#60a5fa;
+            --glass:rgba(255,255,255,0.04);
+            --radius:14px;
+            font-family: "Inter", sans-serif;
+        }
+
+        body{
+            margin:0;
+            padding:30px;
+            background:var(--bg);
+            color:white;
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:15px;
+            font-size:28px;
+            font-weight:700;
+        }
+
+        .btn-create {
+            display:inline-block;
+            padding:10px 18px;
+            background:var(--accent2);
+            color:#041625;
+            border:none;
+            border-radius:10px;
+            font-weight:700;
+            cursor:pointer;
+            text-decoration:none;
+            margin:0 auto 25px auto;
+        }
+
+        .container{
+            max-width:1100px;
+            margin:0 auto;
+        }
+
+        .grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+            gap:20px;
+        }
+
+        .card{
+            background:var(--glass);
+            border:1px solid rgba(255,255,255,0.08);
+            padding:20px;
+            border-radius:var(--radius);
+            backdrop-filter: blur(6px);
+            transition:0.2s;
+        }
+        .card:hover{
+            transform:translateY(-4px);
+            border-color:var(--accent2);
+        }
+
+        .titulo{
+            font-size:18px;
+            font-weight:700;
+            margin-bottom:8px;
+        }
+
+        .desc{
+            color:var(--muted);
+            font-size:14px;
+            margin-bottom:12px;
+        }
+
+        .info{
+            font-size:13px;
+            margin-bottom:10px;
+            color:#d0d8e8;
+        }
+
+        .tag{
+            display:inline-block;
+            padding:6px 10px;
+            border-radius:18px;
+            font-size:12px;
+            background:rgba(255,255,255,0.1);
+            border:1px solid rgba(255,255,255,0.2);
+            margin-bottom:12px;
+        }
+
+        .status-DONE{
+            background:rgba(0,255,150,0.2);
+            border-color:rgba(0,255,150,0.4);
+            color:#89ffcf;
+        }
+
+        .status-IN_PROGRESS{
+            background:rgba(255,165,0,0.2);
+            border-color:rgba(255,165,0,0.4);
+            color:#ffd9a0;
+        }
+
+        .status-TODO{
+            background:rgba(255,255,255,0.15);
+            border-color:rgba(255,255,255,0.3);
+            color:#e7e7e7;
+        }
+
+        .actions{
+            display:flex;
+            justify-content:space-between;
+            margin-top:10px;
+        }
+
+        .btn{
+            padding:8px 12px;
+            border-radius:10px;
+            font-size:13px;
+            cursor:pointer;
+            border:none;
+        }
+
+        .btn-edit{
+            background:var(--accent2);
+            color:#041625;
+        }
+
+        .btn-delete{
+            background:#ff4a4a;
+            color:white;
+        }
+
+        .empty{
+            padding:40px;
+            text-align:center;
+            font-size:18px;
+            color:var(--muted);
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1>📌 Lista de Tarefas</h1>
+
+    <!-- ✅ Botão para criar nova tarefa -->
+    <div style="text-align:center;">
+        <a th:href="@{/tarefas/ui/criar}" class="btn-create">
+            + Criar Nova Tarefa
+        </a>
+    </div>
+
+    <!-- Se não houver tarefas -->
+    <div th:if="${#lists.isEmpty(tarefas)}" class="empty">
+        Nenhuma tarefa encontrada.
+    </div>
+
+    <!-- GRID DE TAREFAS -->
+    <div th:if="${!#lists.isEmpty(tarefas)}" class="grid">
+
+        <div class="card" th:each="t : ${tarefas}">
+
+            <div class="titulo" th:text="${t.nome}"></div>
+
+            <div class="info">
+                📅 Data: <span th:text="${#temporals.format(t.data, 'dd/MM/yyyy')}"></span>
+            </div>
+
+            <span class="tag"
+                  th:classappend="' status-' + ${t.status}"
+                  th:text="${t.status}">
+            </span>
+
+            <div class="actions">
+                <a th:href="@{'/tarefas/ui/editar/' + ${t.id}}">
+                    <button class="btn btn-edit">Editar</button>
+                </a>
+
+                <a th:href="@{'/tarefas/ui/deletar/' + ${t.id}}">
+                    <button class="btn btn-delete">Excluir</button>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
