@@ -180,8 +180,6 @@ A UI apenas repassa os dados.
 
 ---
 
-## 📄 **9. Licença**
-
-Este projeto é de uso livre para fins de estudo e melhoria.
+Ideia https://roadmap.sh/projects/task-tracker
 
 
