@@ -146,7 +146,6 @@ Após excluir, redireciona para `/listar`.
 ```json
 {
   "titulo": "Estudar Spring Boot",
-  "descricao": "Revisar controllers e services",
   "data": "2025-01-01",
   "status": "PENDENTE"
 }
